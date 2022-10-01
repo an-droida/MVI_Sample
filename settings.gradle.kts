@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CurrencyExchanger"
-include ':app'
+include(":app")
