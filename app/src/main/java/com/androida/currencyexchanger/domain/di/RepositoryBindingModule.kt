@@ -1,9 +1,6 @@
 package com.androida.currencyexchanger.domain.di
 
-import com.androida.currencyexchanger.domain.repositories.MyBalanceRepository
-import com.androida.currencyexchanger.domain.repositories.MyBalanceRepositoryImpl
-import com.androida.currencyexchanger.domain.repositories.CurrencyRepository
-import com.androida.currencyexchanger.domain.repositories.CurrencyRepositoryImpl
+import com.androida.currencyexchanger.domain.repositories.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,5 +15,8 @@ abstract class RepositoryBindingModule {
 
     @Binds
     abstract fun bindCurrencyRatesRepository(repository: MyBalanceRepositoryImpl): MyBalanceRepository
+
+    @Binds
+    abstract fun bindCurrencyPreferenceRepository(repository: CurrencyPreferenceRepositoryImpl): CurrencyPreferenceRepository
 
 }

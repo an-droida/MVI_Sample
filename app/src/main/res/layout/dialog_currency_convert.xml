@@ -13,10 +13,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_divider_16"
         android:fontFamily="@font/poppins_semi_bold"
-        android:text="@string/currency_converted"
+        android:text="@string/currency_convert_confirmation"
         android:textColor="@color/black"
         android:textSize="@dimen/font_size_16" />
-
 
     <TextView
         android:id="@+id/tvSubtitle"
@@ -45,7 +44,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:padding="@dimen/margin_divider_12"
-        android:text="@string/done"
+        android:text="@string/confirm"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/font_size_16"
         android:textStyle="bold" />

@@ -13,6 +13,7 @@ fun Fragment.openCurrencyConvertDialog(
     currencyTo: String,
     sell: String,
     receive: String,
+    convertCount: Int,
     onConfirmClicked: (String, String) -> Unit
 ) {
     Dialog(requireContext()).apply {
@@ -24,8 +25,13 @@ fun Fragment.openCurrencyConvertDialog(
 
         with(binding) {
 
-            val commissionFee = (sell.toDouble() * COMMISSION_FEE)
-            val commissionFeeRounded = String.format("%.3f", commissionFee)
+            val commissionFee: Double =
+                if (convertCount > 5) {
+                    val fee = (sell.toDouble() * COMMISSION_FEE)
+                    String.format("%.3f", fee).toDouble()
+                } else {
+                    0.0
+                }
 
             tvSubtitle.text = getString(
                 R.string.converted_currency_subtitle,
@@ -33,13 +39,12 @@ fun Fragment.openCurrencyConvertDialog(
                 sell,
                 currencyTo,
                 receive,
-                commissionFeeRounded,
+                commissionFee,
                 currencyFrom
             )
             tvDone.onClick {
                 onConfirmClicked.invoke(
-                    (sell.toDouble() + commissionFeeRounded.toDouble()).toString(),
-                    receive
+                    (sell.toDouble() + commissionFee).toString(), receive
                 )
                 dismiss()
             }

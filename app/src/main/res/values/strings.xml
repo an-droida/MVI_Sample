@@ -13,7 +13,9 @@
     <string name="zero_hint">0.00</string>
     <string name="search">Search</string>
     <string name="done">Done</string>
-    <string name="currency_converted">Currency converted</string>
-    <string name="converted_currency_subtitle">You have converted %s %s to %s %s. Commission Fee - %s %s.</string>
+    <string name="currency_convert_confirmation">Confirm Currency Exchange</string>
+    <string name="converted_currency_subtitle">You are converting %s %s to %s %s. Commission Fee - %s %s.</string>
+    <string name="no_enough_balance_msg">There is not enough money on balance</string>
+    <string name="confirm">CONFIRM</string>
 
 </resources>

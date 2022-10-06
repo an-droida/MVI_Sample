@@ -81,6 +81,8 @@ dependencies {
     implementation(Room.ktx)
     kapt(Room.compiler)
 
+    implementation(DataStore.dataStore)
+
     implementation(Test.extJUnit)
     implementation(Test.testJUnit)
     implementation(Test.espressoCore)

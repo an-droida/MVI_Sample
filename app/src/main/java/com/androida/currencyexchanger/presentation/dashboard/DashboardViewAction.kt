@@ -55,4 +55,5 @@ sealed class DashboardViewAction : BaseAction<DashboardViewData> {
     }
 
     class OnSubmitBalanceClicked(val sell: String,val receive: String) : DashboardViewAction()
+    object OnSubmitButtonClicked : DashboardViewAction()
 }

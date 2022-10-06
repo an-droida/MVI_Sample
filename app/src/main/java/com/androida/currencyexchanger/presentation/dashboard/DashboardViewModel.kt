@@ -5,6 +5,7 @@ import com.androida.currencyexchanger.core.custom.enums.CurrencyPickerType
 import com.androida.currencyexchanger.core.custom.enums.CurrencyRates
 import com.androida.currencyexchanger.core.fragment.base.BaseViewModel
 import com.androida.currencyexchanger.data.models.local.MyBalanceModel
+import com.androida.currencyexchanger.domain.repositories.CurrencyPreferenceRepository
 import com.androida.currencyexchanger.domain.repositories.CurrencyRepository
 import com.androida.currencyexchanger.domain.repositories.MyBalanceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val currencyRepo: CurrencyRepository,
     private val myBalanceRepo: MyBalanceRepository,
+    private val preferencesRepo: CurrencyPreferenceRepository
 ) : BaseViewModel<DashboardViewAction, DashboardViewState, DashboardViewData>() {
 
     override var viewStateData: DashboardViewData = DashboardViewData()
@@ -70,6 +72,12 @@ class DashboardViewModel @Inject constructor(
             is DashboardViewAction.OnSubmitBalanceClicked -> {
                 updateBalance(action.sell, action.receive)
             }
+            DashboardViewAction.OnSubmitButtonClicked -> {
+                execute {
+                    val count = preferencesRepo.getConvertedCount()
+                    postState(DashboardViewState.OpenConfirmationDialog(count))
+                }
+            }
             else -> Unit
         }
     }
@@ -105,6 +113,8 @@ class DashboardViewModel @Inject constructor(
                         )
                     )
                 }
+                val count = preferencesRepo.getConvertedCount()
+                preferencesRepo.saveConvertedCount(count + 1)
             } else {
                 postState(DashboardViewState.NoBalanceErrorReceived)
             }

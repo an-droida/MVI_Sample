@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androida.currencyexchanger.R
 import com.androida.currencyexchanger.core.custom.enums.CurrencyPickerType
 import com.androida.currencyexchanger.core.custom.extensions.onClick
 import com.androida.currencyexchanger.core.fragment.base.fragment.BaseFragment
@@ -37,58 +38,50 @@ class DashboardFragment :
             rvBalance.adapter = adapter
 
             btnSubmit.onClick {
-                if (tvSellCurrency.text.isNullOrEmpty()) {
-                    openCurrencyConvertDialog(
-                        currencyFrom = tvSellCurrency.text.toString(),
-                        currencyTo = tvReceiveCurrency.text.toString(),
-                        sell = etSell.text.toString(),
-                        receive = etReceive.text.toString()
-                    ) { sell, receive ->
-                        postAction(DashboardViewAction.OnSubmitBalanceClicked(sell, receive))
+                if (!etSell.text.isNullOrEmpty() || !etReceive.text.isNullOrEmpty()) {
+                    postAction(DashboardViewAction.OnSubmitButtonClicked)
+                }
+            }
+
+            etSell.doAfterTextChanged {
+                if (etSell.isFocused) {
+                    if ((it.isNullOrEmpty() || it.toString().toDouble() == 0.0)) {
+                        etReceive.setText("0")
+                    } else {
+                        postAction(
+                            DashboardViewAction.OnConvertAmountChanged(
+                                amount = it.toString().toDouble(),
+                                type = CurrencyPickerType.SELL
+                            ),
+                        )
                     }
                 }
             }
-        }
-
-        viewBinding.etSell.doAfterTextChanged {
-            if (viewBinding.etSell.isFocused) {
-                if ((it.isNullOrEmpty() || it.toString().toDouble() == 0.0)) {
-                    viewBinding.etReceive.setText("0")
-                } else {
-                    postAction(
-                        DashboardViewAction.OnConvertAmountChanged(
-                            amount = it.toString().toDouble(),
-                            type = CurrencyPickerType.SELL
-                        ),
-                    )
-                }
-            }
-        }
-        viewBinding.etReceive.doAfterTextChanged {
-            if (viewBinding.etReceive.isFocused) {
-                if ((it.isNullOrEmpty() || it.toString().toDouble() == 0.0)) {
-                    viewBinding.etSell.setText("0")
-                } else {
-                    postAction(
-                        DashboardViewAction.OnConvertAmountChanged(
-                            amount = it.toString().toDouble(),
-                            type = CurrencyPickerType.RECEIVE
+            etReceive.doAfterTextChanged {
+                if (etReceive.isFocused) {
+                    if ((it.isNullOrEmpty() || it.toString().toDouble() == 0.0)) {
+                        etSell.setText("0")
+                    } else {
+                        postAction(
+                            DashboardViewAction.OnConvertAmountChanged(
+                                amount = it.toString().toDouble(),
+                                type = CurrencyPickerType.RECEIVE
+                            )
                         )
-                    )
+                    }
                 }
             }
-        }
 
-        viewBinding.tvReceiveCurrency.onClick {
-            postAction(DashboardViewAction.RegisterCurrencyPickerAction)
-            postAction(DashboardViewAction.NavigateToCurrencyRates(CurrencyPickerType.RECEIVE))
-        }
+            tvReceiveCurrency.onClick {
+                postAction(DashboardViewAction.RegisterCurrencyPickerAction)
+                postAction(DashboardViewAction.NavigateToCurrencyRates(CurrencyPickerType.RECEIVE))
+            }
 
-        viewBinding.tvSellCurrency.onClick {
-            postAction(DashboardViewAction.RegisterCurrencyPickerAction)
-            postAction(DashboardViewAction.NavigateToCurrencyRates(CurrencyPickerType.SELL))
+            tvSellCurrency.onClick {
+                postAction(DashboardViewAction.RegisterCurrencyPickerAction)
+                postAction(DashboardViewAction.NavigateToCurrencyRates(CurrencyPickerType.SELL))
+            }
         }
-
     }
 
     override fun reflectState(state: DashboardViewState, viewBinding: FragmentDashboardBinding) {
@@ -121,9 +114,20 @@ class DashboardFragment :
             is DashboardViewState.NoBalanceErrorReceived -> {
                 Toast.makeText(
                     requireContext(),
-                    "There is not enough money on balance",
+                    getString(R.string.no_enough_balance_msg),
                     Toast.LENGTH_LONG
                 ).show()
+            }
+            is DashboardViewState.OpenConfirmationDialog -> {
+                openCurrencyConvertDialog(
+                    currencyFrom = viewBinding.tvSellCurrency.text.toString(),
+                    currencyTo = viewBinding.tvReceiveCurrency.text.toString(),
+                    sell = viewBinding.etSell.text.toString(),
+                    receive = viewBinding.etReceive.text.toString(),
+                    state.convertCount
+                ) { sell, receive ->
+                    postAction(DashboardViewAction.OnSubmitBalanceClicked(sell, receive))
+                }
             }
         }
     }

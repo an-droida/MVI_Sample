@@ -14,8 +14,9 @@ sealed class DashboardViewState : BaseViewState<DashboardViewData> {
             return previousData.copy(myBalance = balance)
         }
     }
-
     object NoBalanceErrorReceived : DashboardViewState()
+
+    class OpenConfirmationDialog(val convertCount: Int) : DashboardViewState()
 
     class OnConvertedCurrencyReceived(
         val type: CurrencyPickerType,
@@ -44,5 +45,4 @@ sealed class DashboardViewState : BaseViewState<DashboardViewData> {
             )
         }
     }
-
 }
