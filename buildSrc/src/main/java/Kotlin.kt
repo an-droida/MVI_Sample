@@ -1,7 +1,4 @@
 object Kotlin {
     const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Versions.KOTLIN}"
-    const val coroutinesCore =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.COROUTINES}"
-    const val coroutinesAndroid =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINES}"
+    const val kotlinSerializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.SERIALIZATION_JSON}"
 }

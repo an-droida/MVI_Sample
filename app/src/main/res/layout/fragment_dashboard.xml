@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.dashboard.DashboardFragment">
+
+    <com.androida.currencyexchanger.core.custom.views.CustomToolbar
+        android:id="@+id/cvToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:toolbar_title="Currency converter" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMyBalanceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_divider_18"
+        android:layout_marginTop="@dimen/margin_divider_20"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/my_balance"
+        android:textAllCaps="true"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/font_size_14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvToolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/margin_divider_20"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBalanceTitle"
+        tools:ignore="RtlSymmetry"
+        tools:listitem="@layout/item_my_balance" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCurrencyExchangeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_divider_18"
+        android:layout_marginTop="@dimen/margin_divider_20"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/currency_exchange"
+        android:textAllCaps="true"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/font_size_14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvBalance" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvExchangeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_divider_12"
+        app:cardCornerRadius="@dimen/corner_radius_12"
+        app:cardElevation="@dimen/card_elevation_10"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrencyExchangeTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_divider_16">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSell"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_sell"
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_divider_16"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/sell"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintBottom_toBottomOf="@+id/ivSell"
+                app:layout_constraintStart_toEndOf="@id/ivSell"
+                app:layout_constraintTop_toTopOf="@+id/ivSell" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/margin_divider_10"
+                android:alpha="0.1"
+                android:background="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/ivReceive"
+                app:layout_constraintTop_toBottomOf="@+id/ivSell" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivReceive"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_receive"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvReceive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_divider_16"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/receive"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintBottom_toBottomOf="@+id/ivReceive"
+                app:layout_constraintStart_toEndOf="@id/ivReceive"
+                app:layout_constraintTop_toTopOf="@+id/ivReceive" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSellCurrency"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_divider_16"
+                android:clickable="true"
+                android:drawablePadding="@dimen/margin_divider_4"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="EUR"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/font_size_16"
+                app:drawableEndCompat="@drawable/ic_arrow_down"
+                app:layout_constraintBottom_toBottomOf="@+id/ivSell"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivSell" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvReceiveCurrency"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_divider_16"
+                android:clickable="true"
+                android:drawablePadding="@dimen/margin_divider_4"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="USD"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/font_size_16"
+                app:drawableEndCompat="@drawable/ic_arrow_down"
+                app:layout_constraintBottom_toBottomOf="@+id/ivReceive"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivReceive" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etSell"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="end|center_vertical"
+                android:hint="@string/zero_hint"
+                android:includeFontPadding="false"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="@dimen/margin_divider_16"
+                android:textColor="@color/textColorPrimary"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_18"
+                app:layout_constraintBottom_toBottomOf="@+id/ivSell"
+                app:layout_constraintEnd_toStartOf="@+id/tvSellCurrency"
+                app:layout_constraintStart_toEndOf="@+id/tvReceive"
+                app:layout_constraintTop_toTopOf="@+id/ivSell" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etReceive"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="end|center_vertical"
+                android:hint="@string/zero_hint"
+                android:includeFontPadding="false"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="@dimen/margin_divider_16"
+                android:textColor="@color/colorGreen"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_18"
+                app:layout_constraintBottom_toBottomOf="@+id/ivReceive"
+                app:layout_constraintEnd_toStartOf="@+id/tvReceiveCurrency"
+                app:layout_constraintStart_toEndOf="@+id/tvReceive"
+                app:layout_constraintTop_toTopOf="@+id/ivReceive" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBaseCurrencyRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_divider_16"
+        android:layout_marginEnd="@dimen/margin_divider_20"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/font_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvExchangeContainer"
+        tools:text="1 USD = 1 EUR" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/primary_btn_height"
+        android:layout_marginHorizontal="@dimen/margin_divider_20"
+        android:layout_marginTop="@dimen/margin_divider_16"
+        android:layout_marginBottom="@dimen/margin_divider_20"
+        android:background="@drawable/shape_btn_background"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:includeFontPadding="false"
+        android:text="@string/submit"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

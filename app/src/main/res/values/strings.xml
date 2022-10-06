@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">CurrencyExchanger</string>
+
+
+    <string name="warning_general_title">Oops..</string>
+    <string name="warning_general_message">Something went wrong</string>
+    <string name="api_address">https://api.apilayer.com/currency_data/</string>
+    <string name="my_balance">My Balances</string>
+    <string name="currency_exchange">Currency Exchange</string>
+    <string name="sell">Sell</string>
+    <string name="receive">Receive</string>
+    <string name="submit">Submit</string>
+    <string name="zero_hint">0.00</string>
+    <string name="search">Search</string>
+    <string name="done">Done</string>
+    <string name="currency_converted">Currency converted</string>
+    <string name="converted_currency_subtitle">You have converted %s %s to %s %s. Commission Fee - %s %s.</string>
+
 </resources>

@@ -1,8 +1,11 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("org.jetbrains.kotlin.plugin.serialization") version Versions.KOTLIN
 }
 
@@ -18,6 +21,7 @@ android {
         versionName = ProjectConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -27,9 +31,12 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
         getByName("debug") {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+
+            val key: String = gradleLocalProperties(rootDir).getProperty("API_ACCESS_KEY")
+            buildConfigField("String", "API_ACCESS_KEY", key)
         }
     }
     compileOptions {
@@ -49,10 +56,30 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(AndroidX.constraintLayout)
     implementation(AndroidX.constraintLayout)
+
+    implementation(AndroidX.lifecycleRuntime)
+    implementation(AndroidX.lifecycleViewModel)
+    implementation(AndroidX.activityLifecycle)
+    implementation(AndroidX.fragmentLifecycle)
+
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.retrofitConverter)
+    implementation(Retrofit.okhttpLogging)
+    implementation(Retrofit.serializationConverter)
+
+    implementation(Kotlin.kotlinSerialization)
+    implementation(Kotlin.kotlinSerializationJson)
+
     implementation(Google.material)
+
+    implementation(ThirdParty.lottieAnim)
 
     implementation(DaggerHilt.daggerHiltAndroid)
     kapt(DaggerHilt.daggerHiltCompiler)
+
+    implementation(Room.runtime)
+    implementation(Room.ktx)
+    kapt(Room.compiler)
 
     implementation(Test.extJUnit)
     implementation(Test.testJUnit)
