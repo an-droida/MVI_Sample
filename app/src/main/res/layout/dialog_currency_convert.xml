@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_divider_60"
+    android:background="@drawable/shape_dialog_bk"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_divider_16"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/currency_convert_confirmation"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_size_16" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/margin_divider_16"
+        android:layout_marginTop="@dimen/margin_divider_4"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="@string/converted_currency_subtitle"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_size_14" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_divider_12"
+        android:background="@color/viewColorLight" />
+
+    <TextView
+        android:id="@+id/tvDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="@dimen/margin_divider_12"
+        android:text="@string/confirm"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/font_size_16"
+        android:textStyle="bold" />
+
+</LinearLayout>
