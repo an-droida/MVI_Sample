@@ -1,21 +1,20 @@
 package com.androida.currencyexchanger.presentation.currency
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.androida.currencyexchanger.core.custom.enums.CurrencyPickerType
-import com.androida.currencyexchanger.core.custom.enums.CurrencyRates
-import com.androida.currencyexchanger.core.custom.mappers.toRateAmount
 import com.androida.currencyexchanger.core.fragment.base.BaseViewModel
-import com.androida.currencyexchanger.domain.repositories.CurrencyRepository
+import com.androida.currencyexchanger.domain.useCases.FilterCurrencyListUseCase
+import com.androida.currencyexchanger.domain.useCases.LoadCurrenciesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyRatesViewModel @Inject constructor(
-    private val currencyRepository: CurrencyRepository,
-    private val savedStateHandle: SavedStateHandle
-) :
-    BaseViewModel<CurrencyRatesViewAction, CurrencyRatesViewState, CurrencyRatesViewData>() {
+    private val savedStateHandle: SavedStateHandle,
+    private val loadCurrenciesUseCase: LoadCurrenciesUseCase,
+    private val filterCurrencyListUseCase: FilterCurrencyListUseCase
+) : BaseViewModel<CurrencyRatesViewAction, CurrencyRatesViewState, CurrencyRatesViewData>() {
     override var viewStateData: CurrencyRatesViewData = CurrencyRatesViewData()
 
     override fun onInitialBind() {
@@ -39,24 +38,21 @@ class CurrencyRatesViewModel @Inject constructor(
     }
 
     private fun getCurrencyRates() {
-        execute(withLoader = true) {
-            val response = currencyRepository.getCurrency("EUR").checkResponseWithData()
-            if (response.success == true) {
-                val currencyRates = CurrencyRates.values().toList()
-                currencyRates.forEach { it.rate = it.toRateAmount(response.rates!!) }
+        loadCurrenciesUseCase(
+            scope = viewModelScope,
+            withLoader = true,
+            params = Unit
+        ) { currencyRates ->
+            if (currencyRates.isNotEmpty()) {
                 postState(CurrencyRatesViewState.OnCurrencyReceived(currencyRates))
             }
         }
     }
 
     private fun filterList(filteredText: String?) {
-        if (filteredText == null) {
-            return
-        }
-        val filteredList = viewStateData.currency.filter {
-            it.name.uppercase(Locale.getDefault())
-                .contains(filteredText.uppercase(Locale.getDefault()))
-        }
+        if (filteredText == null) return
+        val filteredList =
+            filterCurrencyListUseCase(filteredText, currencies = viewStateData.currency)
         postState(CurrencyRatesViewState.OnListFiltered(filteredList))
     }
 }

@@ -6,19 +6,14 @@ import com.androida.currencyexchanger.core.activity.commands.Command
 import com.androida.currencyexchanger.core.activity.handlers.CommandHandler
 import com.androida.currencyexchanger.core.custom.extensions.log
 import com.androida.currencyexchanger.core.custom.extensions.logAction
-import com.androida.currencyexchanger.core.custom.extensions.logMessage
 import com.androida.currencyexchanger.core.fragment.action.BaseAction
 import com.androida.currencyexchanger.core.fragment.state.BaseViewState
-import com.androida.currencyexchanger.core.fragment.utils.dialog.DialogOptions
-import com.androida.currencyexchanger.core.fragment.utils.exceptions.ApiException
-import com.androida.currencyexchanger.core.fragment.utils.getErrorMessage
 import dagger.Lazy
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import retrofit2.Response
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class BaseViewModel<
@@ -71,7 +66,7 @@ abstract class BaseViewModel<
             postAction(it as ViewAction)
         }
         if (isViewInitialized) {
-            execute {
+            viewModelScope.launch {
                 _restoreStateSubject.emit(viewStateData)
             }
         } else {
@@ -97,59 +92,4 @@ abstract class BaseViewModel<
         }
     }
 
-
-    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        exception.logMessage.log("view model exception")
-        executeWarningCommand(exception)
-        executeLoaderCommand(false)
-    }
-
-    private fun executeWarningCommand(exception: Throwable) {
-        val defaultMessage = "Something went wrong"
-        val message = if (exception is ApiException)
-            exception.message ?: defaultMessage
-        else
-            defaultMessage
-        val command = object : Command.Warning {
-            override val message: DialogOptions = DialogOptions.GeneralError(error = message)
-        }
-        commandHandler.get().handleCommand(command)
-    }
-
-    private fun executeLoaderCommand(show: Boolean) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val command = object : Command.Loader {
-                override val show: Boolean = show
-            }
-            commandHandler.get().handleCommand(command)
-        }
-    }
-
-
-    protected fun execute(
-        withLoader: Boolean = false,
-        callback: suspend CoroutineScope.() -> Unit
-    ) {
-        viewModelScope.launch(exceptionHandler + Dispatchers.IO) {
-            if (withLoader) {
-                executeLoaderCommand(true)
-                delay(400)
-            }
-            this.callback()
-            executeLoaderCommand(false)
-        }
-    }
-
-    protected fun <T> Response<T>.checkResponseWithData(): T {
-        val body = body()
-        return when {
-            isSuccessful -> {
-                body!!
-            }
-            else -> {
-                // TODO can handle error codes here
-                throw ApiException(getErrorMessage())
-            }
-        }
-    }
 }

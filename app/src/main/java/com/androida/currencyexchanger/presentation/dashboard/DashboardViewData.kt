@@ -9,7 +9,7 @@ data class DashboardViewData(
     val amount: Double? = null,
     val type: CurrencyPickerType = CurrencyPickerType.SELL,
 
-    val baseCurrencyRate: String? = null,
+    val baseCurrencyRate: String = "0.0",
     val baseCurrencyFrom: String = CurrencyRates.EUR.currency,
     val baseCurrencyTo: String = CurrencyRates.USD.currency,
 )

@@ -66,12 +66,4 @@ abstract class BaseFragment<ViewBindingType : ViewBinding,
     protected fun requireBinding(callback: (viewBinding: ViewBindingType) -> Any) {
         viewBinding?.let(callback)
     }
-
-//    fun View.bindActionOnClick(action: () -> Action) {
-//        onClick {
-//            SystemServices.getKeyboardService(requireActivity()).hideKeyboard()
-//            postAction(action.invoke())
-//        }
-//    }
-
 }

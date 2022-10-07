@@ -26,5 +26,5 @@ interface CurrencyRatesDao : CurrencyRatesDbApi {
     )
 
     @Query("SELECT * from my_balance WHERE currency=:currency")
-    override fun findMyBalanceCurrency(currency: String): MyBalanceModel?
+    override suspend fun findMyBalanceCurrency(currency: String): MyBalanceModel?
 }

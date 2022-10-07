@@ -139,7 +139,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:text="EUR"
+                android:text="@string/eur"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="@dimen/font_size_16"
                 app:drawableEndCompat="@drawable/ic_arrow_down"
@@ -159,7 +159,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:text="USD"
+                android:text="@string/usd"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="@dimen/font_size_16"
                 app:drawableEndCompat="@drawable/ic_arrow_down"
@@ -229,12 +229,12 @@
         android:layout_height="@dimen/primary_btn_height"
         android:layout_marginHorizontal="@dimen/margin_divider_20"
         android:layout_marginTop="@dimen/margin_divider_16"
-        android:layout_marginBottom="@dimen/margin_divider_20"
         android:background="@drawable/shape_btn_background"
+        android:enabled="false"
         android:fontFamily="@font/poppins_semi_bold"
         android:includeFontPadding="false"
         android:text="@string/submit"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvBaseCurrencyRate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

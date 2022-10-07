@@ -11,7 +11,7 @@ interface MyBalanceRepository {
 
     fun getAllData(): Flow<List<MyBalanceModel>>
 
-    fun findMyBalanceCurrency(currency:String): MyBalanceModel?
+    suspend fun findMyBalanceCurrency(currency: String): MyBalanceModel?
 
     suspend fun exchangeBalance(
         amount: String,

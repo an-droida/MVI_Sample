@@ -24,7 +24,7 @@ class MyBalanceRepositoryImpl @Inject constructor(
         return currencyRatesDbApi.getAllData()
     }
 
-    override fun findMyBalanceCurrency(currency: String): MyBalanceModel? {
+    override suspend fun findMyBalanceCurrency(currency: String): MyBalanceModel? {
         return currencyRatesDbApi.findMyBalanceCurrency(currency)
     }
 

@@ -18,10 +18,6 @@ class CurrencyRatesAdapter(private val onItemSelected: (CurrencyRates) -> Unit) 
         notifyDataSetChanged()
     }
 
-    fun getAllData(): List<CurrencyRates> {
-        return currencies
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyRatesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemCurrencyBinding.inflate(inflater, parent, false)

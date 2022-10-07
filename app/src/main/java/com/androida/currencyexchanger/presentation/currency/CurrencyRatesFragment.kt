@@ -8,7 +8,6 @@ import com.androida.currencyexchanger.core.fragment.base.bottomSheet.BaseBottomS
 import com.androida.currencyexchanger.core.fragment.utils.ViewBindingFactory
 import com.androida.currencyexchanger.databinding.FragmentCurrencyRatesBinding
 import com.androida.currencyexchanger.presentation.currency.list.CurrencyRatesAdapter
-import com.androida.currencyexchanger.presentation.dashboard.dialog.openCurrencyConvertDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.reflect.KClass
 

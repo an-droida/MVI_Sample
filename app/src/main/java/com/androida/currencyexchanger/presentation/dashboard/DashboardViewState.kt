@@ -14,7 +14,7 @@ sealed class DashboardViewState : BaseViewState<DashboardViewData> {
             return previousData.copy(myBalance = balance)
         }
     }
-    object NoBalanceErrorReceived : DashboardViewState()
+    object NoEnoughBalanceErrorReceived : DashboardViewState()
 
     class OpenConfirmationDialog(val convertCount: Int) : DashboardViewState()
 
